@@ -1,0 +1,45 @@
+﻿@inject DataService dataService
+
+<div>
+    <ul>
+        <li @onclick="(() => SetLastClicked(Category))">
+    <div @onclick="Toggle" >
+                @Category.Title
+    </div>
+        </li>
+    @if (IsExpanded)    
+    {   
+        
+            @foreach (var child in Category.Children)
+        {
+             <ul><TreeItem Category="@child" /></ul>
+        }
+   
+    }
+    </ul>
+</div>
+
+
+    
+@code
+{
+    public Category lastClicked { get; set; } = null;
+
+
+
+    async void SetLastClicked(Category item)
+    {
+        lastClicked = item;
+        dataService.SetData(lastClicked);
+        dataService.TriggerEvent();
+
+    }
+    [Parameter] public Category Category { get; set; }
+
+    private bool IsExpanded { get; set; } = false;
+
+    private void Toggle()
+    {
+        IsExpanded = !IsExpanded;
+    }
+}

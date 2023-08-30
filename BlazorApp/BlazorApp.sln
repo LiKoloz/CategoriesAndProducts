@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp.csproj", "{A38FCCF7-C7C2-4B81-A98E-3B735FE1B431}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPNetApp", "..\Server\ASPNetApp\ASPNetApp.csproj", "{42253AF4-5FC1-46EC-9710-15E3434EA0EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbWorker", "..\Server\DbWorker\DbWorker.csproj", "{C458450A-D501-440D-A909-E23495C78FA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A38FCCF7-C7C2-4B81-A98E-3B735FE1B431}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A38FCCF7-C7C2-4B81-A98E-3B735FE1B431}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A38FCCF7-C7C2-4B81-A98E-3B735FE1B431}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A38FCCF7-C7C2-4B81-A98E-3B735FE1B431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42253AF4-5FC1-46EC-9710-15E3434EA0EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42253AF4-5FC1-46EC-9710-15E3434EA0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42253AF4-5FC1-46EC-9710-15E3434EA0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42253AF4-5FC1-46EC-9710-15E3434EA0EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C458450A-D501-440D-A909-E23495C78FA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C458450A-D501-440D-A909-E23495C78FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C458450A-D501-440D-A909-E23495C78FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C458450A-D501-440D-A909-E23495C78FA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD23E9A5-B40B-43B2-827F-856D362B6700}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,301 @@
+﻿@inject DataService dataService
+@inject HttpClient httpClient
+
+<h3>@category.Title</h3>
+
+
+<table class="table">
+    <thead >
+        <tr>
+            <th scope="col" @onclick="()=> products.Sort((Product a, Product b)=> String.Compare(a.Title, b.Title))">Название</th>
+            <th scope="col" @onclick="()=> CountSort() ">Количество</th>
+            <th scope="col" @onclick="()=>PriceSort()">Цена</th>
+            <th scope="col">Удалить</th>
+            <th scope="col">Изменить</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in filteredProducts)
+        {
+        <tr>
+                <td>@product.Title</td>
+                <td>@product.Count</td>
+                <td>@product.Price</td>
+                <td @onclick="()=> tryDelete(product)"><input type="checkbox" /></td>
+                <td @onclick="()=> changeProduct(product)"><input type="checkbox" /></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<h4>
+    Поиск
+</h4>
+<div class="search">
+    <input type="text" placeholder="Поиск" @bind="searchTerm" class="form-control mb-3" />
+</div>
+
+@if (isChanged)
+{
+    <h4>
+        Изменить
+    </h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Количество</th>
+                <th scope="col">Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input @bind-value="@changedProduct.Title"></input ></td>
+                <td><input @bind-value="@changedProduct.Count"></input ></td>
+                <td><input @bind-value="@changedProduct.Price"></input ></td>
+            </tr>
+        </tbody>
+    </table>
+    <button @onclick="()=> closeChangeProduct()">Закрыть</button>
+}
+
+
+@if (isAdd)
+{
+<h4>
+    Добавить
+</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td><input @bind-value="@AddProduct.Title"></input ></td>
+                <td><input @bind-value="@AddProduct.Count"></input ></td>
+                <td><input @bind-value="@AddProduct.Price"></input ></td>
+        </tr>
+    </tbody>
+</table>
+    <button @onclick="()=> addNewProduct()">Добавить</button>
+    <button @onclick="()=> isAdd = false">Закрыть</button>
+}
+@if (!isAdd)
+{
+    <div style="margin-top: 15px;">
+        <button @onclick="()=> isAdd = true" style="margin-top: 10px;">Добавить товар</button>
+    </div>
+}
+
+
+@if (isDeleteWindow)
+{
+    <div id="zatemnenie">
+        <div id="okno">
+            Вы точно хотите удалить @deletingProduct.Title<br>
+            <div>
+                <button href="#" class="close" @onclick="() => isTruDelete()">Удалить</button>
+                <button href="#" class="close" @onclick="() => isFalseDelete()">Отмена</button>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+
+    #okno {
+        width: 300px;
+        height: 50px;
+        text-align: center;
+        padding: 15px;
+        border: 3px solid grey;
+        border-radius: 10px;
+        color: grey;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: #fff;
+    }
+
+    .close {
+        border: 1px solid grey;
+        color: grey;
+        text-decoration: none;
+        background: #f2f2f2;
+        font-size: 14pt;
+        cursor: pointer;
+    }
+    .button {
+        border-radius: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        width:80%;
+        height: 2em;
+    }
+    
+    .search{
+        padding-top: 10px;
+    }
+    
+    .table {
+        width: 100%;
+        margin-bottom: 20px;
+        border: 1px solid #dddddd;
+        border-collapse: collapse;
+    }
+
+        .table th {
+            font-weight: bold;
+            padding: 5px;
+            background: #efefef;
+            border: 1px solid #dddddd;
+        }
+
+        .table td {
+            border: 1px solid #dddddd;
+            padding: 5px;
+        }
+</style>
+
+@code {
+    private string searchTerm;
+
+
+    void CountSort()
+    {
+        int indx; 
+        for (int i = 0; i < products.Count; i++)
+        {
+            indx = i;
+            for (int j = i; j < products.Count; j++) 
+            {
+                if (products[j].Count > products[indx].Count)
+                {
+                    indx = j; 
+                }
+            }
+            if (products[indx] == products[i])
+                continue;
+
+            Product temp = products[i];
+            products[i] = products[indx];
+            products[indx] = temp;
+        }
+    }
+
+    void PriceSort()
+    {
+        int indx;
+        for (int i = 0; i < products.Count; i++)
+        {
+            indx = i;
+            for (int j = i; j < products.Count; j++)
+            {
+                if (products[j].Price > products[indx].Price)
+                {
+                    indx = j;
+                }
+            }
+            if (products[indx] == products[i])
+                continue;
+
+            Product temp = products[i];
+            products[i] = products[indx];
+            products[indx] = temp;
+        }
+    }
+    bool isChanged = false;
+    bool isAdd = false;
+    bool isDeleteWindow = false;
+    bool isDelete = false;
+
+    Product deletingProduct = new();
+
+
+    Product changedProduct = new();
+    Product AddProduct = new();
+
+    async void addNewProduct()
+    {
+        AddProduct.CategoryId = category.Id;
+        Product a = (Product)AddProduct.Clone();
+        products.Add(a);
+        await httpClient.PostAsJsonAsync<Product>($"api/post/product/{a.CategoryId}", a);
+    }
+
+    async void closeChangeProduct()
+    {
+        isChanged = false;
+        await httpClient.PutAsJsonAsync($"api/put/product", changedProduct);
+    }
+
+    void tryDelete(Product product)
+    {
+        deletingProduct = product;
+        isDeleteWindow = true;
+    }
+
+    async void isTruDelete()
+    {
+      
+        deleteProduct(deletingProduct);
+        isDeleteWindow = false;
+        await httpClient.DeleteAsync($"api/delete/product/{deletingProduct.Id}");
+
+    }
+
+    void isFalseDelete()
+    {
+        isDeleteWindow = false;
+    }
+    void deleteProduct(Product product)
+    {
+        products.Remove(product);
+    }
+
+    async void changeProduct(Product product)
+    {
+        changedProduct = product;
+        isChanged = true;
+    }
+
+
+    private List<Product> filteredProducts => products
+    .Where(p => string.IsNullOrWhiteSpace(searchTerm)
+    || p.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+    .ToList();
+
+    Category category = new Category();
+
+    protected override void OnInitialized()
+    {
+        dataService.MyEvent += OnMyEvent;
+    }
+    async private void OnMyEvent()
+    {
+        category = dataService.GetData();
+        products = await httpClient.GetFromJsonAsync<List<Product>>($"api/get/products/{category.Id}");
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        dataService.MyEvent -= OnMyEvent;
+    }
+
+
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+
+    private List<Product> products = new List<Product>
+    { };
+}
