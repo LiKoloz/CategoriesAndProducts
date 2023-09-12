@@ -3185,11 +3185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Testovoe2\\Server\\DbWorker\\DbWorker.csproj",
+      "projectUniqueName": "E:\\Testovoe2\\Server\\DbWorker\\DbWorker.csproj",
       "projectName": "DbWorker",
-      "projectPath": "D:\\Testovoe2\\Server\\DbWorker\\DbWorker.csproj",
+      "projectPath": "E:\\Testovoe2\\Server\\DbWorker\\DbWorker.csproj",
       "packagesPath": "C:\\Users\\Ptvkz\\.nuget\\packages\\",
-      "outputPath": "D:\\Testovoe2\\Server\\DbWorker\\obj\\",
+      "outputPath": "E:\\Testovoe2\\Server\\DbWorker\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Ptvkz\\AppData\\Roaming\\NuGet\\NuGet.Config",

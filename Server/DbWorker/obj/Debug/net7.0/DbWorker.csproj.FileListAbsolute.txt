@@ -22,3 +22,15 @@ D:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\DbWorker.dll
 D:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\refint\DbWorker.dll
 D:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\DbWorker.pdb
 D:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\ref\DbWorker.dll
+E:\Testovoe2\Server\DbWorker\bin\Debug\net7.0\DbWorker.deps.json
+E:\Testovoe2\Server\DbWorker\bin\Debug\net7.0\DbWorker.dll
+E:\Testovoe2\Server\DbWorker\bin\Debug\net7.0\DbWorker.pdb
+E:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\DbWorker.csproj.AssemblyReference.cache
+E:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\DbWorker.GeneratedMSBuildEditorConfig.editorconfig
+E:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\DbWorker.AssemblyInfoInputs.cache
+E:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\DbWorker.AssemblyInfo.cs
+E:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\DbWorker.csproj.CoreCompileInputs.cache
+E:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\DbWorker.dll
+E:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\refint\DbWorker.dll
+E:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\DbWorker.pdb
+E:\Testovoe2\Server\DbWorker\obj\Debug\net7.0\ref\DbWorker.dll

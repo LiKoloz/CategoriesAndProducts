@@ -35,19 +35,16 @@
     <input type="text" placeholder="Поиск" @bind="searchTerm" class="form-control mb-3" />
 </div>
 
+
+
+
+
 @if (isChanged)
 {
-    <h4>
-        Изменить
-    </h4>
+    <div id="zatemnenie">
+        <div id="okno">
+        Изменить 
     <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Название</th>
-                <th scope="col">Количество</th>
-                <th scope="col">Цена</th>
-            </tr>
-        </thead>
         <tbody>
             <tr>
                 <td><input @bind-value="@changedProduct.Title"></input ></td>
@@ -57,22 +54,18 @@
         </tbody>
     </table>
     <button @onclick="()=> closeChangeProduct()">Закрыть</button>
+        </div>
+    </div>
 }
 
 
 @if (isAdd)
 {
-<h4>
+    <div id="zatemnenie">
+        <div id="okno">
     Добавить
-</h4>
 <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Название</th>
-            <th scope="col">Количество</th>
-            <th scope="col">Цена</th>
-        </tr>
-    </thead>
+   
     <tbody>
         <tr>
                 <td><input @bind-value="@AddProduct.Title"></input ></td>
@@ -83,12 +76,15 @@
 </table>
     <button @onclick="()=> addNewProduct()">Добавить</button>
     <button @onclick="()=> isAdd = false">Закрыть</button>
+        </div>
+    </div>
 }
 @if (!isAdd)
 {
     <div style="margin-top: 15px;">
         <button @onclick="()=> isAdd = true" style="margin-top: 10px;">Добавить товар</button>
     </div>
+   
 }
 
 
@@ -105,64 +101,6 @@
     </div>
 }
 
-<style>
-
-    #okno {
-        width: 300px;
-        height: 50px;
-        text-align: center;
-        padding: 15px;
-        border: 3px solid grey;
-        border-radius: 10px;
-        color: grey;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        margin: auto;
-        background: #fff;
-    }
-
-    .close {
-        border: 1px solid grey;
-        color: grey;
-        text-decoration: none;
-        background: #f2f2f2;
-        font-size: 14pt;
-        cursor: pointer;
-    }
-    .button {
-        border-radius: 50%;
-        margin-left: auto;
-        margin-right: auto;
-        width:80%;
-        height: 2em;
-    }
-    
-    .search{
-        padding-top: 10px;
-    }
-    
-    .table {
-        width: 100%;
-        margin-bottom: 20px;
-        border: 1px solid #dddddd;
-        border-collapse: collapse;
-    }
-
-        .table th {
-            font-weight: bold;
-            padding: 5px;
-            background: #efefef;
-            border: 1px solid #dddddd;
-        }
-
-        .table td {
-            border: 1px solid #dddddd;
-            padding: 5px;
-        }
-</style>
 
 @code {
     private string searchTerm;
@@ -170,46 +108,14 @@
 
     void CountSort()
     {
-        int indx; 
-        for (int i = 0; i < products.Count; i++)
-        {
-            indx = i;
-            for (int j = i; j < products.Count; j++) 
-            {
-                if (products[j].Count > products[indx].Count)
-                {
-                    indx = j; 
-                }
-            }
-            if (products[indx] == products[i])
-                continue;
-
-            Product temp = products[i];
-            products[i] = products[indx];
-            products[indx] = temp;
-        }
+        var c = products.OrderBy(p => p.Count).ToList();
+        products = c;
     }
 
     void PriceSort()
     {
-        int indx;
-        for (int i = 0; i < products.Count; i++)
-        {
-            indx = i;
-            for (int j = i; j < products.Count; j++)
-            {
-                if (products[j].Price > products[indx].Price)
-                {
-                    indx = j;
-                }
-            }
-            if (products[indx] == products[i])
-                continue;
-
-            Product temp = products[i];
-            products[i] = products[indx];
-            products[indx] = temp;
-        }
+        var c = products.OrderBy(p => p.Price).ToList();
+        products = c;
     }
     bool isChanged = false;
     bool isAdd = false;
