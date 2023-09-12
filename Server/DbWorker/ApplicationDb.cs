@@ -3,15 +3,15 @@ using DbWorker.Classes;
 
 namespace DbWorker
 {
-    public static class ApplicationDb
+    public class ApplicationDb
     {
-        async public static Task AddCategory(Category category)
+        async public Task AddCategory(Category category)
         {
             var db = new ApplicationContext();
             await db.Categories.AddAsync(category);
            await db.SaveChangesAsync();
         }
-        async public static Task DeleteCategory(int Id)
+        async public Task DeleteCategory(int Id)
         {
             var db = new ApplicationContext();
             Category? category = db.Categories.Include(c=> c.Children).AsParallel().FirstOrDefault(c => c.Id == Id);
@@ -42,7 +42,7 @@ namespace DbWorker
             }
         }
 
-        async public static Task UpdateCategory(Category UpdateCategory)
+        async public Task UpdateCategory(Category UpdateCategory)
         {
             var db = new ApplicationContext();
             var category = db.Categories.FirstOrDefault(c => c.Id == UpdateCategory.Id);
@@ -54,14 +54,14 @@ namespace DbWorker
             }
         }
 
-         public static List<Category> GetAllCategories()
+         public List<Category> GetAllCategories()
         {
             var db = new ApplicationContext();
             
             return db.Categories.ToList();
         }
 
-        async public static Task AddProduct(int id,Product product)
+        async public Task AddProduct(int id,Product product)
         {
             var db = new ApplicationContext();
             var c = db.Categories.FirstOrDefault(p =>p.Id == id);
@@ -70,7 +70,7 @@ namespace DbWorker
            await db.Products.AddAsync(product);
            await db.SaveChangesAsync();
         }
-        async public static Task DeleteProduct(int Id)
+        async public Task DeleteProduct(int Id)
         {
             var db = new ApplicationContext();
             var Product = db.Products.FirstOrDefault(p => p.Id == Id);
@@ -81,14 +81,14 @@ namespace DbWorker
             }
         }
 
-         public static List<Product> GetCategoryProducts(int id)
+         public async  Task<List<Product>> GetCategoryProductsAsync(int id)
         {
             var db = new ApplicationContext();
 
-            return db.Products.Where(p=>p.CategoryId == id).ToList();
+            return db.Products.Where(p=>p.CategoryId == id).AsParallel().ToList();
         }
 
-        async public static Task UpdateProduct(Product UpdateProduct)
+        public async Task UpdateProduct(Product UpdateProduct)
         {
             var db = new ApplicationContext();
             var product = db.Products.FirstOrDefault(c => c.Id == UpdateProduct.Id);

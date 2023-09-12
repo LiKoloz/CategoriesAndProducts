@@ -1,3 +1,6 @@
+using DbWorker;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace ASPNetApp
 {
     public class Program
@@ -9,6 +12,8 @@ namespace ASPNetApp
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddCors();
+            builder.Services.AddSingleton<ApplicationDb>();
+
             var app = builder.Build();
 
             if (!app.Environment.IsDevelopment())

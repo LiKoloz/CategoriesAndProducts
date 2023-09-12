@@ -8,34 +8,34 @@ namespace ASPNetApp.Controllers
     [ApiController]
     public class ProductController : Controller
     {
-        [HttpGet("api/get/products/{id}")]
-        public ActionResult GetProductsByCategory(int id)
+        private readonly ApplicationDb _db;
+        public ProductController(ApplicationDb db)
         {
-            var a = ApplicationDb.GetCategoryProducts(id);
-            foreach(var item in a)
-            {
-                Console.WriteLine($"{item.Id} - {item.Title}");
-            }
-            return Json(ApplicationDb.GetCategoryProducts(id));
+            _db = db;
+        }   
+        [HttpGet("api/get/products/{id}")]
+        public async Task<IActionResult> GetProductsByCategory(int id)
+        {
+            return Json(_db.GetCategoryProductsAsync(id));
         }
 
 
         [HttpDelete("api/delete/product/{id}")]
         public async void DeleteProduct(int Id)
         {
-            await ApplicationDb.DeleteProduct(Id);
+            await _db.DeleteProduct(Id);
         }
 
         [HttpPut("api/put/product")]
         public async void PutProduct(Product product)
         {
-            await ApplicationDb.UpdateProduct(product);
+            await _db.UpdateProduct(product);
         }
 
         [HttpPost("api/post/product/{id}")]
         public async void PostProduct(int id,Product product)
         {
-            await ApplicationDb.AddProduct(id,product);
+            await _db.AddProduct(id,product);
         }
     }
 }
