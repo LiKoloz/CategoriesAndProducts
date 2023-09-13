@@ -1,5 +1,5 @@
-using DbWorker;
-using Microsoft.Extensions.DependencyInjection;
+using ASPNetApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASPNetApp
 {
@@ -9,10 +9,12 @@ namespace ASPNetApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+           
             builder.Services.AddControllersWithViews();
             builder.Services.AddCors();
-            builder.Services.AddSingleton<ApplicationDb>();
+            string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
             var app = builder.Build();
 
