@@ -1,0 +1,12 @@
+E:\Testovoe2\Server\DataBaseWorker\obj\Debug\net7.0\DataBaseWorker.GeneratedMSBuildEditorConfig.editorconfig
+E:\Testovoe2\Server\DataBaseWorker\obj\Debug\net7.0\DataBaseWorker.AssemblyInfoInputs.cache
+E:\Testovoe2\Server\DataBaseWorker\obj\Debug\net7.0\DataBaseWorker.AssemblyInfo.cs
+E:\Testovoe2\Server\DataBaseWorker\obj\Debug\net7.0\DataBaseWorker.csproj.CoreCompileInputs.cache
+E:\Testovoe2\Server\DataBaseWorker\bin\Debug\net7.0\DataBaseWorker.deps.json
+E:\Testovoe2\Server\DataBaseWorker\bin\Debug\net7.0\DataBaseWorker.dll
+E:\Testovoe2\Server\DataBaseWorker\bin\Debug\net7.0\DataBaseWorker.pdb
+E:\Testovoe2\Server\DataBaseWorker\obj\Debug\net7.0\DataBaseWorker.csproj.AssemblyReference.cache
+E:\Testovoe2\Server\DataBaseWorker\obj\Debug\net7.0\DataBaseWorker.dll
+E:\Testovoe2\Server\DataBaseWorker\obj\Debug\net7.0\refint\DataBaseWorker.dll
+E:\Testovoe2\Server\DataBaseWorker\obj\Debug\net7.0\DataBaseWorker.pdb
+E:\Testovoe2\Server\DataBaseWorker\obj\Debug\net7.0\ref\DataBaseWorker.dll

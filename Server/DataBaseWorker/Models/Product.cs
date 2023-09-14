@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 
-namespace ASPNetApp.Models
+namespace DataBaseWorker.Models
 {
     public class Product
     {

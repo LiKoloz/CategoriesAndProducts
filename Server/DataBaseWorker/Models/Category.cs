@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace ASPNetApp.Models
+namespace DataBaseWorker.Models
 {
-    public class Category : ICloneable
+    public class Category
     {
         [Key]
         public int Id { get; set; }
@@ -18,8 +18,5 @@ namespace ASPNetApp.Models
   
         [JsonIgnore]
         public List<Product> Products { get; set; } = new List<Product> { };
-
-
-        public object Clone() => MemberwiseClone();
     }
 }

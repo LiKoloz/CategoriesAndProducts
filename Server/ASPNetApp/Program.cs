@@ -1,5 +1,12 @@
 using ASPNetApp.Models;
+using DataBaseWorker.Queries;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using DataBaseWorker.Queries;
+using DataBaseWorker.Models;
+using DataBaseWorker.Handlers;
+using DataBaseWorker;
+using DataBaseWorker.Commands;
 
 namespace ASPNetApp
 {
@@ -12,9 +19,26 @@ namespace ASPNetApp
            
             builder.Services.AddControllersWithViews();
             builder.Services.AddCors();
-            string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+            builder.Services.AddSingleton<ApplicationContext>();
+            builder.Services.AddSingleton<ApplicationDb>();
+
+            {
+                builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+                builder.Services.AddTransient<IRequestHandler<GetCategoriesQuery, List<Category>>, GetCategoryQueryHandler>();
+                builder.Services.AddTransient<IRequestHandler<AddCategoryCommand, Category>, AddCategoryCommandHandler>();
+                builder.Services.AddTransient<IRequestHandler<DeleteCategoryCommand, object>, DeleteCategoryCommandHandler>();
+                builder.Services.AddTransient<IRequestHandler<ChangeCategoryCommand, Category>, ChangeCategoryCommandHandler>();
+            }
+
+            {
+                builder.Services.AddTransient<IRequestHandler<GetProductsByCategoryQuery, List<Product>>, GetProductsByCategoryQueryHandler>();
+                builder.Services.AddTransient<IRequestHandler<AddProductCommand, Product>, AddProductCommandHandler>();
+                builder.Services.AddTransient<IRequestHandler<DeleteProductCommand, object>, DeleteProductCommandHandler>();
+                builder.Services.AddTransient<IRequestHandler<ChangeProductCommand, object>, ChangeProductCommandHandler>();
+
+            }
+
 
             var app = builder.Build();
 

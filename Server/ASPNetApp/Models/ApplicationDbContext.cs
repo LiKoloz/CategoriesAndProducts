@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/*
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace ASPNetApp.Models
@@ -14,3 +16,4 @@ namespace ASPNetApp.Models
         internal DbSet<Product> Products { get; set; } = null!;
     }
 }
+*/
