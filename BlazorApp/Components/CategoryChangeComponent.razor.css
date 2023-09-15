@@ -1,0 +1,25 @@
+﻿#okno {
+        width: 300px;
+        height: 50px;
+        text-align: center;
+        padding: 15px;
+        border: 3px solid grey;
+        border-radius: 10px;
+        color: grey;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: #fff;
+    }
+
+    .close {
+        border: 1px solid grey;
+        color: grey;
+        text-decoration: none;
+        background: #f2f2f2;
+        font-size: 14pt;
+        cursor: pointer;
+    }

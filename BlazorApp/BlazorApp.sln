@@ -6,8 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp.csproj", "{A38FCCF7-C7C2-4B81-A98E-3B735FE1B431}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPNetApp", "..\Server\ASPNetApp\ASPNetApp.csproj", "{42253AF4-5FC1-46EC-9710-15E3434EA0EA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{187B89BA-6A9F-4ECA-8539-74A39F372EC6} = {187B89BA-6A9F-4ECA-8539-74A39F372EC6}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbWorker", "..\Server\DbWorker\DbWorker.csproj", "{C458450A-D501-440D-A909-E23495C78FA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseWorker", "..\Server\DataBaseWorker\DataBaseWorker.csproj", "{187B89BA-6A9F-4ECA-8539-74A39F372EC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +26,10 @@ Global
 		{42253AF4-5FC1-46EC-9710-15E3434EA0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42253AF4-5FC1-46EC-9710-15E3434EA0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42253AF4-5FC1-46EC-9710-15E3434EA0EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C458450A-D501-440D-A909-E23495C78FA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C458450A-D501-440D-A909-E23495C78FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C458450A-D501-440D-A909-E23495C78FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C458450A-D501-440D-A909-E23495C78FA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{187B89BA-6A9F-4ECA-8539-74A39F372EC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{187B89BA-6A9F-4ECA-8539-74A39F372EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{187B89BA-6A9F-4ECA-8539-74A39F372EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{187B89BA-6A9F-4ECA-8539-74A39F372EC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

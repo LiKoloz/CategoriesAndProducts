@@ -1,35 +1,46 @@
 ﻿using ASPNetApp.Models;
+using DataBaseWorker.Commands;
+using DataBaseWorker.Models;
+using DataBaseWorker.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using DbWorker;
-using DbWorker.Classes;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASPNetApp.Controllers
 {
     [ApiController]
     public class CategoryController : Controller
     {
-       
-        [HttpGet("api/categories")]
-        public IActionResult GetAllCategories()
+        private readonly IMediator _mediator;
+        public CategoryController(IMediator mediator)
         {
-            return Json(ApplicationDb.GetAllCategories()); 
-        }
-        [HttpDelete("api/delete/category/{Id}")]
-        public async void DeleteCategory(int Id)
-        {
-            await ApplicationDb.DeleteCategory(Id); 
+            _mediator = mediator;
         }
 
-        [HttpPut("api/put/category")]
-        public async void PutCategory(Category category)
+
+        [HttpGet("api/categories")]
+        public async Task<IActionResult> GetAllCategories()
         {
-           await ApplicationDb.UpdateCategory(category);
+            var result = await _mediator.Send(new GetCategoriesQuery());
+            return Json(result); 
         }
 
         [HttpPost("api/post/category")]
-        public async void PostCategory (Category category)
+        public async Task PostCategory(Category category)
         {
-           await ApplicationDb.AddCategory(category);
+            var categoryToReturn = await _mediator.Send(new AddCategoryCommand(category));
+        }
+        
+        [HttpDelete("api/delete/category/{Id:int}")]
+        public async Task DeleteCategory(int Id)
+        {
+             await _mediator.Send(new DeleteCategoryCommand(Id));
+        }
+
+        [HttpPut("api/put/category")]
+        public async Task PutCategory(Category category)
+        {
+            await _mediator.Send(new ChangeCategoryCommand(category));
         }
 
     }
