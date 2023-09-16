@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Testovoe2\\Server\\DataBaseWorker\\DataBaseWorker.csproj": {}
+    "E:\\Testovoe\\Server\\DataBaseWorker\\DataBaseWorker.csproj": {}
   },
   "projects": {
-    "E:\\Testovoe2\\Server\\DataBaseWorker\\DataBaseWorker.csproj": {
+    "E:\\Testovoe\\Server\\DataBaseWorker\\DataBaseWorker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Testovoe2\\Server\\DataBaseWorker\\DataBaseWorker.csproj",
+        "projectUniqueName": "E:\\Testovoe\\Server\\DataBaseWorker\\DataBaseWorker.csproj",
         "projectName": "DataBaseWorker",
-        "projectPath": "E:\\Testovoe2\\Server\\DataBaseWorker\\DataBaseWorker.csproj",
+        "projectPath": "E:\\Testovoe\\Server\\DataBaseWorker\\DataBaseWorker.csproj",
         "packagesPath": "C:\\Users\\Ptvkz\\.nuget\\packages\\",
-        "outputPath": "E:\\Testovoe2\\Server\\DataBaseWorker\\obj\\",
+        "outputPath": "E:\\Testovoe\\Server\\DataBaseWorker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ptvkz\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -19,23 +19,24 @@ namespace ASPNetApp
            
             builder.Services.AddControllersWithViews();
             builder.Services.AddCors();
+ 
 
-            builder.Services.AddSingleton<ApplicationContext>();
-            builder.Services.AddSingleton<ApplicationDb>();
+
+            Config.AddAppContext(builder.Services);
 
             {
-                builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
-                builder.Services.AddTransient<IRequestHandler<GetCategoriesQuery, List<Category>>, GetCategoryQueryHandler>();
-                builder.Services.AddTransient<IRequestHandler<AddCategoryCommand, Category>, AddCategoryCommandHandler>();
-                builder.Services.AddTransient<IRequestHandler<DeleteCategoryCommand, object>, DeleteCategoryCommandHandler>();
-                builder.Services.AddTransient<IRequestHandler<ChangeCategoryCommand, Category>, ChangeCategoryCommandHandler>();
+                builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly))
+                .AddTransient<IRequestHandler<GetCategoriesQuery, List<Category>>, GetCategoryQueryHandler>()
+                .AddTransient<IRequestHandler<AddCategoryCommand, Category>, AddCategoryCommandHandler>()
+                .AddTransient<IRequestHandler<DeleteCategoryCommand, object>, DeleteCategoryCommandHandler>()
+                .AddTransient<IRequestHandler<ChangeCategoryCommand, Category>, ChangeCategoryCommandHandler>();
             }
 
             {
-                builder.Services.AddTransient<IRequestHandler<GetProductsByCategoryQuery, List<Product>>, GetProductsByCategoryQueryHandler>();
-                builder.Services.AddTransient<IRequestHandler<AddProductCommand, Product>, AddProductCommandHandler>();
-                builder.Services.AddTransient<IRequestHandler<DeleteProductCommand, object>, DeleteProductCommandHandler>();
-                builder.Services.AddTransient<IRequestHandler<ChangeProductCommand, object>, ChangeProductCommandHandler>();
+                builder.Services.AddTransient<IRequestHandler<GetProductsByCategoryQuery, List<Product>>, GetProductsByCategoryQueryHandler>()
+                    .AddTransient<IRequestHandler<AddProductCommand, Product>, AddProductCommandHandler>()
+                    .AddTransient<IRequestHandler<DeleteProductCommand, object>, DeleteProductCommandHandler>()
+                    .AddTransient<IRequestHandler<ChangeProductCommand, object>, ChangeProductCommandHandler>();
 
             }
 

@@ -4,6 +4,7 @@ namespace BlazorApp.Models
 {
     public class Category
     {
+        [JsonIgnore]
         public int Id { get; set; }
         public string Title { get; set; }
         public int? ParentId { get; set; }

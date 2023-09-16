@@ -8,7 +8,7 @@ namespace DataBaseWorker
     {
         public ApplicationContext()
         {
-            Database.EnsureCreated();
+            Database.EnsureCreated(); 
         }
         internal DbSet<Category> Categories { get; set; } = null!;
         internal DbSet<Product> Products { get; set; } = null!;

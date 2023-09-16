@@ -241,8 +241,8 @@
             {
                 maxId = findMaxId(category2, maxId);
             }
-            var NewCategory = new Category { Title = nameNewCategory, ParentId = null, Children = new List<Category>() };
-            Categories.Add(new Category { Title = nameNewCategory, ParentId = maxId + 1, Children = new List<Category>() });
+            var NewCategory = new Category { Id = maxId + 1, Title = nameNewCategory, ParentId = null, Children = new List<Category>() };
+            Categories.Add(new Category { Id = maxId + 1, Title = nameNewCategory, ParentId = null, Children = new List<Category>() });
             categoryService.SetData(Categories);
             categoryService.TriggerEvent();
             await httpClient.PostAsJsonAsync("api/post/category", NewCategory);
@@ -261,8 +261,8 @@
                         maxId = findMaxId(category2, maxId);
                     }
 
-                    var NewCategory = new Category { Title = nameNewCategory, ParentId = NewPatherId, Children = new List<Category>() };
-                    result.Children.Add(NewCategory);
+                    var NewCategory = new Category { Id = maxId + 1, Title = nameNewCategory, ParentId = NewPatherId, Children = new List<Category>() };
+                result.Children.Add(NewCategory);
                     categoryService.SetData(Categories);
                     categoryService.TriggerEvent();
                     await httpClient.PostAsJsonAsync("api/post/category", NewCategory);
