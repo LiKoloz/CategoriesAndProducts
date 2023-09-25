@@ -1,0 +1,75 @@
+﻿@using BlazorApp.Services;
+@inject AddNewCategoryDialogService addNewCategoryService;
+
+
+<MudDialog>
+    <DialogContent>
+        <MudText Typo="Typo.h4">Добавить категорию </MudText>
+        <MudItem xs="12" sm="6" md="4">
+            <MudField Label="Title" Variant="Variant.Text"> <input @bind-value="@_nameNewCategory" /></MudField>
+        </MudItem>
+        <select @bind="_newPatherId">
+            <option></option>
+            <option value="-1">Корень</option>
+            @foreach (var category in Categories)
+            {
+                <option value="@category.Id">@category.Title - @category.Id</option>
+                @RenderChildCategories(category);
+            }
+
+        </select>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+
+    async Task AddCategory()
+    {
+        addNewCategoryService.SetData(_nameNewCategory, _newPatherId);
+        MudDialog.Close(DialogResult.Ok(true));
+    }
+
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public string _nameNewCategory { get; set; } = "";
+    [Parameter]
+    public  int? _newPatherId { get; set; }
+    void Submit() => AddCategory();
+    void Cancel() => MudDialog.Cancel();
+
+    protected override async Task OnInitializedAsync() => await LoadData();
+
+
+    private RenderFragment RenderChildCategories(Category parentCategory)
+    {
+        if (parentCategory.Children != null && parentCategory.Children.Any())
+        {
+            return builder =>
+            {
+                foreach (var childCategory in parentCategory.Children)
+                {
+                    builder.OpenElement(0, "option");
+                    builder.AddAttribute(1, "value", childCategory.Id);
+                    builder.AddContent(2, $"- {childCategory.Title} - {childCategory.Id}");
+                    builder.CloseElement();
+                    builder.AddContent(3, RenderChildCategories(childCategory));
+                }
+            };
+        }
+
+        return null;
+    }
+
+
+    async Task LoadData()
+    {
+        // Categories = await httpClient.GetFromJsonAsync<List<Category>>("/api/categories");
+
+    }
+
+    List<Category> Categories = new();
+}

@@ -1,4 +1,6 @@
-﻿namespace BlazorApp.Models
+﻿using BlazorApp.Models;
+
+namespace BlazorApp.Services
 {
     public class CategoryService
     {

@@ -1,4 +1,5 @@
-﻿@inject DataService dataService
+﻿@using BlazorApp.Services;
+@inject DataService dataService
 @inject HttpClient httpClient
 
 <h3>@category.Title</h3>
@@ -133,13 +134,13 @@
         AddProduct.CategoryId = category.Id;
         Product a = (Product)AddProduct.Clone();
         products.Add(a);
-        await httpClient.PostAsJsonAsync<Product>($"api/post/product/{a.CategoryId}", a);
+        //await httpClient.PostAsJsonAsync<Product>($"api/post/product/{a.CategoryId}", a);
     }
 
     async void closeChangeProduct()
     {
         isChanged = false;
-        await httpClient.PutAsJsonAsync($"api/put/product", changedProduct);
+       // await httpClient.PutAsJsonAsync($"api/put/product", changedProduct);
     }
 
     void tryDelete(Product product)
@@ -153,7 +154,7 @@
       
         deleteProduct(deletingProduct);
         isDeleteWindow = false;
-        await httpClient.DeleteAsync($"api/delete/product/{deletingProduct.Id}");
+       // await httpClient.DeleteAsync($"api/delete/product/{deletingProduct.Id}");
 
     }
 
@@ -187,7 +188,7 @@
     async private void OnMyEvent()
     {
         category = dataService.GetData();
-        products = await httpClient.GetFromJsonAsync<List<Product>>($"api/get/products/{category.Id}");
+      //  products = await httpClient.GetFromJsonAsync<List<Product>>($"api/get/products/{category.Id}");
         StateHasChanged();
     }
 

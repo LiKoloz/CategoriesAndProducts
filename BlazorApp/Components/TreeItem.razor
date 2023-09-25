@@ -1,23 +1,26 @@
-﻿@inject DataService dataService
+﻿@using BlazorApp.Services;
+@inject DataService dataService
 
 <div>
-    <ul>
-        <li @onclick="(() => SetLastClicked(Category))">
-    <div @onclick="Toggle" >
-                @Category.Title
-    </div>
-        </li>
-    @if (IsExpanded)    
-    {   
-        
-            @foreach (var child in Category.Children)
-        {
-             <ul><TreeItem Category="@child" /></ul>
-        }
-   
-    }
-    </ul>
+    <MudPaper Width="100%">
+        <MudList Clickable="true">
+            <MudListItem Text="@Category.Title" InitiallyExpanded="true" @onclick="Toggle">
+                <NestedList>
+
+                        @foreach (var child in Category.Children)
+                        {
+                            <MudListItem>
+                                <TreeItem Category="@child" />
+                            </MudListItem>
+                        }
+
+                </NestedList>
+            </MudListItem>
+        </MudList>
+    </MudPaper>
 </div>
+  
+
 
 
     

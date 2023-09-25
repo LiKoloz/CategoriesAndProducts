@@ -1,20 +1,20 @@
-﻿namespace BlazorApp.Models
+﻿namespace BlazorApp.Services
 {
-    public class DataService
+    public class DeleteCategoryService
     {
-        private Category data = new Category();
+        private bool data = false;
 
         public event Action MyEvent;
         public void TriggerEvent()
         {
             MyEvent?.Invoke();
         }
-        public Category GetData()
+        public bool GetData()
         {
             return data;
         }
 
-        public void SetData(Category newData)
+        public void SetData(bool newData)
         {
             data = newData;
         }

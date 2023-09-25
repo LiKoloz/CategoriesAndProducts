@@ -1,0 +1,32 @@
+﻿@using BlazorApp.Services;
+@inject DeleteCategoryService deleteCategoryService
+
+<MudDialog>
+    <DialogContent>
+        Вы уроверены?
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    async void IsTrueDelete()
+    {
+        deleteCategoryService.SetData(true);
+        MudDialog.Close(DialogResult.Ok(true));
+
+    }
+
+    async void IsFalseDelete()
+    {
+        deleteCategoryService.SetData(true);
+        MudDialog.Cancel();
+
+    }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}

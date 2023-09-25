@@ -1,4 +1,4 @@
-﻿namespace BlazorApp.Models
+﻿namespace BlazorApp.Services
 {
     public class ProductService
     {

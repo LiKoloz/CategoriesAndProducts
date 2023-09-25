@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uE3pLtYH/lOe3XmI7PU2y4C1NUGE1s/zOTrubpoeJjxnQPcmVjfHXkuZSyz2Zg8d1y8gjcGwrleSZbuOGmII/Q==",
+  "dgSpecHash": "rtRCbE0esh7VIX0kowHdc8BbKw87sVuO7KzvXHgPK+oNGmHAx8zMX0na6wDoBFRyD/HcMtlF6lfUUSUPO7surg==",
   "success": true,
-  "projectFilePath": "E:\\Testovoe\\Server\\DataBaseWorker\\DataBaseWorker.csproj",
+  "projectFilePath": "E:\\Testovoe2\\Server\\DataBaseWorker\\DataBaseWorker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ptvkz\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Ptvkz\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

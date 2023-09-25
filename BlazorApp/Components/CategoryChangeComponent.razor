@@ -1,27 +1,19 @@
-﻿@inject HttpClient httpClient
+﻿@using BlazorApp.Services;
+@using BlazorApp.Components.Dialogs.CategoriesDialogs;
+@using BlazorApp.Services;
+@inject HttpClient httpClient
 @inject CategoryService categoryService
+@inject AddNewCategoryDialogService addNewCategoryDialogService
+@inject DeleteCategoryService deleteCategoryService
+@inject IDialogService DialogService
 
-<h4>Добавить категорию</h4>
-<input @bind-value="@nameNewCategory" />
-<select @bind="NewPatherId">
-    <option></option>
-    <option value="-1">Корень</option>
-    @foreach (var category in Categories)
-    {
-        <option value="@category.Id">@category.Title - @category.Id</option>
-        @RenderChildCategories(category)
-        ;
-    }
-
-</select>
-
-<button @onclick="()=> addNewCategory() ">Добавить</button>
+<MudButton Variant="Variant.Filled" @onclick="()=> addNewCategoryDialog() " Style="margin: 2%;">Добавить  категорию</MudButton>
 
 
-<h4>Изменить категорию</h4>
+<MudText Typo="Typo.h4">Изменить категорию</MudText>
 <div>
-    <h5>Выберите категорию</h5>
-    <select @bind="ChangeCategoryId">
+    <MudText Typo="Typo.h5">Выберите категорию</MudText>
+    <select @bind="ChangeCategoryId" style="width: 50%;" Class="border-solid border-2 mud-border-primary rounded">
         @foreach (var category in Categories)
         {
             <option value="@category.Id">@category.Title - @category.Id"</option>
@@ -29,13 +21,12 @@
         }
     </select>
 </div>
-<div>
-    <h5>Новое название</h5>
-    <input @bind-value="NewNameChangeCategory" />
+<div style="margin-top:2%;" >
+    <h5 style="display: inline-block;">Новое название</h5>
+    <input Class="border-solid border-2 mud-border-primary rounded" @bind-value="NewNameChangeCategory" style="display: inline-block; width: 200px; " />
 
-    <h5>Новый родитель</h5>
-    <select @bind="NewFatherId">
-
+    <h5 style="display: inline-block; ">Новый родитель</h5>
+    <select @bind="NewFatherId" style="display: inline-block; width: 200px;" Class="border-solid border-2 mud-border-primary rounded">
         @foreach (var category in Categories)
         {
             <option value="@category.Id">@category.Title - @category.Id"</option>
@@ -45,7 +36,7 @@
     </select>
 </div>
 
-<button @onclick="()=>changeCategory() " style="margin-top: 10px;">Изменить</button>
+<MudButton Variant="Variant.Filled" @onclick="()=>changeCategory() " style="margin-top: 10px;">Изменить</MudButton>
 
 
 @if (isDeleteWindow)
@@ -62,9 +53,9 @@
 }
 
 
-<h4>Удалить</h4>
+<MudText Typo="Typo.h4">Удалить</MudText>
 <div>
-    <select @bind="deleteDacegoryId">
+    <select @bind="deleteDacegoryId" Class="border-solid border-2 mud-border-primary rounded" style="width: 50%">
 
         <option></option>
         @foreach (var category in Categories)
@@ -74,13 +65,36 @@
             @RenderChildCategories(category)
         }
     </select>
-    <button @onclick="() => deleteCategory()">Удалить</button>
+    <MudButton @onclick="OpenDeleteDialog" Variant="Variant.Filled" Color="Color.Primary" style="margin-top: 1%;">
+        Удалить
+    </MudButton>
 </div>
 
 
 
 
 @code {
+    bool isDelete;
+    private void OpenDeleteDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<DeleteCategoryDialog>("Simple Dialog", options);
+    }
+
+    async void DeleteCategoryEvent()
+    {
+        isDelete = deleteCategoryService.GetData();
+        if (isDelete) deleteCategory();   
+    }
+
+    async void AddCategoryEvent()
+    {
+        nameNewCategory = addNewCategoryDialogService.GetNewName();
+        NewPatherId = addNewCategoryDialogService.GetNewPatherId();
+        StateHasChanged();
+    }
+
+
     bool isDeleteWindow = false;
     void isFalseDelete()
     {
@@ -111,7 +125,7 @@
         isDeleteWindow = false;
         categoryService.SetData(Categories);
         categoryService.TriggerEvent();
-        await httpClient.DeleteAsync($"/api/delete/category/{deleteDacegoryId}");
+        //  await httpClient.DeleteAsync($"/api/delete/category/{deleteDacegoryId}");
     }
 
 
@@ -137,7 +151,7 @@
 
 
     string nameNewCategory = "";
-    int NewPatherId;
+    int? NewPatherId;
     int deleteDacegoryId;
     int ChangeCategoryId;
     int NewFatherId;
@@ -171,7 +185,7 @@
                             result.ParentId = newFather.Id;
                             categoryService.SetData(Categories);
                             categoryService.TriggerEvent();
-                            await httpClient.PutAsJsonAsync("/api/put/category", result);
+                            //   await httpClient.PutAsJsonAsync("/api/put/category", result);
                             break;
                         }
 
@@ -199,7 +213,7 @@
                             result.ParentId = newFather.Id;
                             categoryService.SetData(Categories);
                             categoryService.TriggerEvent();
-                            await httpClient.PutAsJsonAsync("/api/put/category", result);
+                            //   await httpClient.PutAsJsonAsync("/api/put/category", result);
                             break;
                         }
                     }
@@ -220,7 +234,7 @@
                     }
                     categoryService.SetData(Categories);
                     categoryService.TriggerEvent();
-                    await httpClient.PutAsJsonAsync("/api/put/category", result);
+                    //  await httpClient.PutAsJsonAsync("/api/put/category", result);
                     break;
                 }
 
@@ -230,7 +244,6 @@
 
 
     }
-
 
     async Task addNewCategory()
     {
@@ -245,7 +258,7 @@
             Categories.Add(new Category { Id = maxId + 1, Title = nameNewCategory, ParentId = null, Children = new List<Category>() });
             categoryService.SetData(Categories);
             categoryService.TriggerEvent();
-            await httpClient.PostAsJsonAsync("api/post/category", NewCategory);
+            //   await httpClient.PostAsJsonAsync("api/post/category", NewCategory);
 
         }
         else
@@ -262,14 +275,21 @@
                     }
 
                     var NewCategory = new Category { Id = maxId + 1, Title = nameNewCategory, ParentId = NewPatherId, Children = new List<Category>() };
-                result.Children.Add(NewCategory);
+                    result.Children.Add(NewCategory);
                     categoryService.SetData(Categories);
                     categoryService.TriggerEvent();
-                    await httpClient.PostAsJsonAsync("api/post/category", NewCategory);
+                    //  await httpClient.PostAsJsonAsync("api/post/category", NewCategory);
                     break;
                 }
             }
         }
+    }
+
+    async Task addNewCategoryDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show <AddNewCategoryDialog > ("Simple Dialog", options);
+        addNewCategory();
     }
 
     public int findMaxId(Category category, int maxId)
@@ -307,7 +327,9 @@
 
     async Task LoadData()
     {
-        Categories = await httpClient.GetFromJsonAsync<List<Category>>("/api/categories");
+        addNewCategoryDialogService.ChangeEvent += AddCategoryEvent;
+        deleteCategoryService.MyEvent += DeleteCategoryEvent;
+        // Categories = await httpClient.GetFromJsonAsync<List<Category>>("/api/categories");
 
     }
     protected override void OnParametersSet()
