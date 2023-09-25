@@ -10,6 +10,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddSingleton<DataService>()
     .AddSingleton<CategoryService>()
     .AddSingleton<AddNewCategoryDialogService>()
+    .AddSingleton<DeleteCategoryService>()
     .AddMudServices();
 builder.Services.AddScoped(sp =>
     new HttpClient
